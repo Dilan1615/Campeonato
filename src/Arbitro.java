@@ -20,4 +20,35 @@ public class Arbitro extends Persona {
     }
 
     // Getters y Setters
+
+    public int getIdArbitro() {
+        return idArbitro;
+    }
+
+    public void setIdArbitro(int idArbitro) {
+        this.idArbitro = idArbitro;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    private void obtenerDatos() {
+        System.out.println("Nombre: " + getNombre());
+        System.out.println("Cédula: " + getCedula());
+        System.out.println("Sexo: " + getSexo());
+        System.out.println("ID Arbitro: " + idArbitro);
+    }
 }

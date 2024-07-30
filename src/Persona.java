@@ -10,10 +10,15 @@ public class Persona {
         this.sexo = sexo;
     }
 
-    public void obtenerDatos() {
-        System.out.println("Nombre: " + nombre + ", Cedula: " + cedula + ", Sexo: " + sexo);
+    public String getNombre() {
+        return nombre;
     }
 
-    // Getters y Setters
-}
+    public String getCedula() {
+        return cedula;
+    }
 
+    public String getSexo() {
+        return sexo;
+    }
+}
