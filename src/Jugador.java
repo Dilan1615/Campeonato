@@ -1,50 +1,43 @@
 public class Jugador extends Persona {
-    private String posicion;
-    private int goles;
-    private int asistencias;
-    private int faltas;
+    private String categoria;
+    private byte[] foto;
 
-    public Jugador(String nombre, String cedula, String sexo, String categoria, int id) {
+    public Jugador(String nombre, String cedula, String sexo, String categoria, byte[] foto) {
         super(nombre, cedula, sexo);
-        // Otros inicializadores si es necesario
+        this.categoria = categoria;
+        this.foto = foto;
     }
 
-    public static Jugador registrarJugador(String nombre, String cedula, String sexo, String categoria, Campeonato campeonato) {
-        // Implementación del método
-        return new Jugador(nombre, cedula, sexo, categoria, 1);
+    public static Jugador registrarJugador(String nombre, String cedula, String sexo, String categoria, byte[] foto) {
+        return new Jugador(nombre, cedula, sexo, categoria, foto);
     }
 
-    public void setPosicion(String posicion) {
-        this.posicion = posicion;
+    public void obtenerJugador() {
+        obtenerDatos();
+        System.out.println("Categoria: " + categoria);
     }
 
-    public void setGoles(int goles) {
-        this.goles = goles;
+    // Getters y Setters
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setAsistencias(int asistencias) {
-        this.asistencias = asistencias;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public void setFaltas(int faltas) {
-        this.faltas = faltas;
+    public byte[] getFoto() {
+        return foto;
     }
 
-    public String getPosicion() {
-        return posicion;
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
-    public int getGoles() {
-        return goles;
+    private void obtenerDatos() {
+        // Implementar lógica para obtener datos del jugador si es necesario
+        System.out.println("Nombre: " + getNombre());
+        System.out.println("Cédula: " + getCedula());
+        System.out.println("Sexo: " + getSexo());
     }
-
-    public int getAsistencias() {
-        return asistencias;
-    }
-
-    public int getFaltas() {
-        return faltas;
-    }
-    
-    // Otros métodos si es necesario
 }

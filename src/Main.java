@@ -14,8 +14,16 @@ public class Main {
         String cedulaDirector = scanner.nextLine();
         System.out.print("Ingrese sexo del Director: ");
         String sexoDirector = scanner.nextLine();
+        
+        // Leer ID del Director, manejando la entrada del entero correctamente
+        int idDirector = 0;
         System.out.print("Ingrese ID del Director: ");
-        int idDirector = scanner.nextInt();
+        if (scanner.hasNextInt()) {
+            idDirector = scanner.nextInt();
+        } else {
+            System.out.println("Error: ID del Director debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         scanner.nextLine(); // Consumir el salto de línea
 
         Director director1 = new Director(nombreDirector, cedulaDirector, sexoDirector, idDirector);
@@ -27,8 +35,16 @@ public class Main {
         String cedulaSupervisor = scanner.nextLine();
         System.out.print("Ingrese sexo del Supervisor: ");
         String sexoSupervisor = scanner.nextLine();
+        
+        // Leer ID del Supervisor, manejando la entrada del entero correctamente
+        int idSupervisor = 0;
         System.out.print("Ingrese ID del Supervisor: ");
-        int idSupervisor = scanner.nextInt();
+        if (scanner.hasNextInt()) {
+            idSupervisor = scanner.nextInt();
+        } else {
+            System.out.println("Error: ID del Supervisor debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         scanner.nextLine(); // Consumir el salto de línea
 
         Supervisor supervisor1 = new Supervisor(nombreSupervisor, cedulaSupervisor, sexoSupervisor, idSupervisor);
@@ -40,8 +56,16 @@ public class Main {
         String cedulaArbitro = scanner.nextLine();
         System.out.print("Ingrese sexo del Árbitro: ");
         String sexoArbitro = scanner.nextLine();
+        
+        // Leer ID del Árbitro, manejando la entrada del entero correctamente
+        int idArbitro = 0;
         System.out.print("Ingrese ID del Árbitro: ");
-        int idArbitro = scanner.nextInt();
+        if (scanner.hasNextInt()) {
+            idArbitro = scanner.nextInt();
+        } else {
+            System.out.println("Error: ID del Árbitro debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         scanner.nextLine(); // Consumir el salto de línea
         System.out.print("Ingrese rol del Árbitro: ");
         String rolArbitro = scanner.nextLine();
@@ -126,7 +150,13 @@ public class Main {
         System.out.print("Ingrese NCI de la Inscripción: ");
         String NCIInscripcion = scanner.nextLine();
         System.out.print("Ingrese número de participantes: ");
-        int numParticipantes = scanner.nextInt();
+        int numParticipantes = 0;
+        if (scanner.hasNextInt()) {
+            numParticipantes = scanner.nextInt();
+        } else {
+            System.out.println("Error: Número de participantes debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         scanner.nextLine(); // Consumir el salto de línea
         System.out.print("Ingrese estado de la Inscripción: ");
         String estadoInscripcion = scanner.nextLine();
@@ -158,7 +188,13 @@ public class Main {
         System.out.print("Ingrese nombre del Registro: ");
         String nombreRegistro = scanner.nextLine();
         System.out.print("Ingrese ID del Registro: ");
-        int idRegistro = scanner.nextInt();
+        int idRegistro = 0;
+        if (scanner.hasNextInt()) {
+            idRegistro = scanner.nextInt();
+        } else {
+            System.out.println("Error: ID del Registro debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         scanner.nextLine(); // Consumir el salto de línea
 
         Registro registro = new Registro(nombreRegistro, idRegistro);
@@ -167,7 +203,13 @@ public class Main {
 
         // Ingresar datos del resultado
         System.out.print("Ingrese ID del Resultado: ");
-        int idResultado = scanner.nextInt();
+        int idResultado = 0;
+        if (scanner.hasNextInt()) {
+            idResultado = scanner.nextInt();
+        } else {
+            System.out.println("Error: ID del Resultado debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         scanner.nextLine(); // Consumir el salto de línea
 
         Resultado resultado = new Resultado(idResultado);
@@ -184,9 +226,21 @@ public class Main {
 
         // Ingresar datos de la tabla de posición
         System.out.print("Ingrese posición en la tabla: ");
-        int posicionTabla = scanner.nextInt();
+        int posicionTabla = 0;
+        if (scanner.hasNextInt()) {
+            posicionTabla = scanner.nextInt();
+        } else {
+            System.out.println("Error: Posición en la tabla debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         System.out.print("Ingrese ID de la tabla: ");
-        int idTabla = scanner.nextInt();
+        int idTabla = 0;
+        if (scanner.hasNextInt()) {
+            idTabla = scanner.nextInt();
+        } else {
+            System.out.println("Error: ID de la tabla debe ser un número entero.");
+            scanner.next(); // Limpiar el input incorrecto
+        }
         scanner.nextLine(); // Consumir el salto de línea
 
         TablaPosicion tablaPosicion = new TablaPosicion(posicionTabla, idTabla);
