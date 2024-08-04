@@ -1,262 +1,256 @@
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        List<Equipo> equipos = new ArrayList<>();
 
-        // Ingresar datos del Director
-        System.out.print("Ingrese nombre del Director: ");
-        String nombreDirector = scanner.nextLine();
-        System.out.print("Ingrese cédula del Director: ");
-        String cedulaDirector = scanner.nextLine();
-        System.out.print("Ingrese sexo del Director: ");
-        String sexoDirector = scanner.nextLine();
-        
-        // Leer ID del Director, manejando la entrada del entero correctamente
-        int idDirector = 0;
-        System.out.print("Ingrese ID del Director: ");
-        if (scanner.hasNextInt()) {
-            idDirector = scanner.nextInt();
-        } else {
-            System.out.println("Error: ID del Director debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
+        try {
+            // Ingresar datos del Director
+            System.out.print("Ingrese nombre del Director: ");
+            String nombreDirector = scanner.nextLine();
+            System.out.print("Ingrese cedula del Director: ");
+            String cedulaDirector = scanner.nextLine();
+            System.out.print("Ingrese sexo del Director: ");
+            String sexoDirector = scanner.nextLine();
+            int idDirector = leerEntero(scanner, "Ingrese ID del Director: ");
+            scanner.nextLine(); // Consumir el salto de línea
+            Director director1 = new Director(nombreDirector, cedulaDirector, sexoDirector, idDirector);
+
+            // Ingresar datos del Supervisor
+            System.out.print("Ingrese nombre del Supervisor: ");
+            String nombreSupervisor = scanner.nextLine();
+            System.out.print("Ingrese cedula del Supervisor: ");
+            String cedulaSupervisor = scanner.nextLine();
+            System.out.print("Ingrese sexo del Supervisor: ");
+            String sexoSupervisor = scanner.nextLine();
+            int idSupervisor = leerEntero(scanner, "Ingrese ID del Supervisor: ");
+            scanner.nextLine(); // Consumir el salto de línea
+            Supervisor supervisor1 = new Supervisor(nombreSupervisor, cedulaSupervisor, sexoSupervisor, idSupervisor);
+
+            // Ingresar datos del Arbitro
+            System.out.print("Ingrese nombre del Arbitro: ");
+            String nombreArbitro = scanner.nextLine();
+            System.out.print("Ingrese cedula del Arbitro: ");
+            String cedulaArbitro = scanner.nextLine();
+            System.out.print("Ingrese sexo del Arbitro: ");
+            String sexoArbitro = scanner.nextLine();
+            int idArbitro = leerEntero(scanner, "Ingrese ID del Arbitro: ");
+            scanner.nextLine(); // Consumir el salto de línea
+            System.out.print("Ingrese rol del Arbitro: ");
+            String rolArbitro = scanner.nextLine();
+            Arbitro arbitro1 = Arbitro.registrarArbitro(nombreArbitro, cedulaArbitro, sexoArbitro, idArbitro, rolArbitro, null);
+
+            int numTitulares = 0;
+            int numSuplentes = 0;
+            boolean moreTeams = true;
+            String equipoGanador = "";
+
+            while (moreTeams) {
+                // Ingresar datos del Equipo A
+                System.out.print("Ingrese nombre del Equipo A: ");
+                String nombreEquipoA = scanner.nextLine();
+                System.out.print("Ingrese color del Equipo A: ");
+                String colorEquipoA = scanner.nextLine();
+                System.out.print("Ingrese entrenador del Equipo A: ");
+                String entrenadorEquipoA = scanner.nextLine();
+                System.out.print("Ingrese himno del Equipo A: ");
+                String himnoEquipoA = scanner.nextLine();
+                if (numTitulares == 0 && numSuplentes == 0) {
+                    numTitulares = leerEntero(scanner, "Ingrese el numero de titulares del Equipo A: ");
+                    scanner.nextLine(); // Consumir el salto de línea
+                    numSuplentes = leerEntero(scanner, "Ingrese el numero de suplentes del Equipo A: ");
+                    scanner.nextLine(); // Consumir el salto de línea
+                }
+                System.out.println("Ingrese titulares del Equipo A:");
+                List<Jugador> titularesEquipoA = ingresarJugadores(scanner, numTitulares);
+                System.out.println("Ingrese suplentes del Equipo A:");
+                List<Jugador> suplentesEquipoA = ingresarJugadores(scanner, numSuplentes);
+
+                Equipo equipoA = new Equipo(nombreEquipoA, colorEquipoA, entrenadorEquipoA, himnoEquipoA, titularesEquipoA, suplentesEquipoA);
+                equipos.add(equipoA);
+
+                // Ingresar datos del Equipo B (mismo numero de jugadores y suplentes que Equipo A)
+                System.out.print("Ingrese nombre del Equipo B: ");
+                String nombreEquipoB = scanner.nextLine();
+                System.out.print("Ingrese color del Equipo B: ");
+                String colorEquipoB = scanner.nextLine();
+                System.out.print("Ingrese entrenador del Equipo B: ");
+                String entrenadorEquipoB = scanner.nextLine();
+                System.out.print("Ingrese himno del Equipo B: ");
+                String himnoEquipoB = scanner.nextLine();
+                System.out.println("Ingrese titulares del Equipo B:");
+                List<Jugador> titularesEquipoB = ingresarJugadores(scanner, numTitulares);
+                System.out.println("Ingrese suplentes del Equipo B:");
+                List<Jugador> suplentesEquipoB = ingresarJugadores(scanner, numSuplentes);
+
+                Equipo equipoB = new Equipo(nombreEquipoB, colorEquipoB, entrenadorEquipoB, himnoEquipoB, titularesEquipoB, suplentesEquipoB);
+                equipos.add(equipoB);
+
+                // Ingresar informacion del partido
+                System.out.print("Ingrese el equipo que gano (A, B, o empate): ");
+                equipoGanador = scanner.nextLine().trim().toUpperCase();
+                int campeonatos = 0;
+                if (!equipoGanador.equals("EMPATE")) {
+                    campeonatos = leerEntero(scanner, "Ingrese el numero de campeonatos (1-3): ");
+                    while (campeonatos < 1 || campeonatos > 3) {
+                        campeonatos = leerEntero(scanner, "Entrada invalida. Ingrese el numero de campeonatos (1-3): ");
+                    }
+                    scanner.nextLine(); // Consumir el salto de línea
+
+                    System.out.println("Desea llenar los detalles del equipo ganador nuevamente? (si/no)");
+                    String opcion = scanner.nextLine().trim().toLowerCase();
+                    if (opcion.equals("si")) {
+                        if (equipoGanador.equals("A")) {
+                            equipos.remove(equipoA);
+                            System.out.println("Llenando detalles del Equipo A nuevamente.");
+                            // Reingresar datos del Equipo A
+                            System.out.print("Ingrese nombre del Equipo A: ");
+                            nombreEquipoA = scanner.nextLine();
+                            System.out.print("Ingrese color del Equipo A: ");
+                            colorEquipoA = scanner.nextLine();
+                            System.out.print("Ingrese entrenador del Equipo A: ");
+                            entrenadorEquipoA = scanner.nextLine();
+                            System.out.print("Ingrese himno del Equipo A: ");
+                            himnoEquipoA = scanner.nextLine();
+                            System.out.println("Ingrese titulares del Equipo A:");
+                            titularesEquipoA = ingresarJugadores(scanner, numTitulares);
+                            System.out.println("Ingrese suplentes del Equipo A:");
+                            suplentesEquipoA = ingresarJugadores(scanner, numSuplentes);
+
+                            equipoA = new Equipo(nombreEquipoA, colorEquipoA, entrenadorEquipoA, himnoEquipoA, titularesEquipoA, suplentesEquipoA);
+                            equipos.add(equipoA);
+                        } else {
+                            equipos.remove(equipoB);
+                            System.out.println("Llenando detalles del Equipo B nuevamente.");
+                            // Reingresar datos del Equipo B
+                            System.out.print("Ingrese nombre del Equipo B: ");
+                            nombreEquipoB = scanner.nextLine();
+                            System.out.print("Ingrese color del Equipo B: ");
+                            colorEquipoB = scanner.nextLine();
+                            System.out.print("Ingrese entrenador del Equipo B: ");
+                            entrenadorEquipoB = scanner.nextLine();
+                            System.out.print("Ingrese himno del Equipo B: ");
+                            himnoEquipoB = scanner.nextLine();
+                            System.out.println("Ingrese titulares del Equipo B:");
+                            titularesEquipoB = ingresarJugadores(scanner, numTitulares);
+                            System.out.println("Ingrese suplentes del Equipo B:");
+                            suplentesEquipoB = ingresarJugadores(scanner, numSuplentes);
+
+                            equipoB = new Equipo(nombreEquipoB, colorEquipoB, entrenadorEquipoB, himnoEquipoB, titularesEquipoB, suplentesEquipoB);
+                            equipos.add(equipoB);
+                        }
+                    }
+                }
+
+                System.out.println("Desea agregar mas equipos? (si/no)");
+                String respuesta = scanner.nextLine().trim().toLowerCase();
+                if (respuesta.equals("no")) {
+                    moreTeams = false;
+                }
+            }
+
+            // Mostrar la tabla de estadisticas
+            System.out.println("\nDatos de los Equipos:");
+            for (Equipo equipo : equipos) {
+                mostrarDatosEquipo(equipo);
+            }
+
+            System.out.println("\nTotal de Faltas realizadas:");
+            for (Equipo equipo : equipos) {
+                int faltasTotales = equipo.calcularFaltasTotales();
+                System.out.println(equipo.getNombre() + " - Faltas Totales: " + faltasTotales);
+            }
+
+            // Mostrar tabla de posiciones
+            System.out.println("\nTabla de Posiciones:");
+            for (Equipo equipo : equipos) {
+                mostrarTablaPosiciones(equipo);
+            }
+
+            // Mostrar el equipo ganador en mayúsculas
+            if (!equipoGanador.equals("EMPATE")) {
+                System.out.println("\nEL EQUIPO GANADOR ES: " + equipoGanador);
+            } else {
+                System.out.println("\nEL PARTIDO TERMINO EN EMPATE");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
-        scanner.nextLine(); // Consumir el salto de línea
+    }
 
-        Director director1 = new Director(nombreDirector, cedulaDirector, sexoDirector, idDirector);
-
-        // Ingresar datos del Supervisor
-        System.out.print("Ingrese nombre del Supervisor: ");
-        String nombreSupervisor = scanner.nextLine();
-        System.out.print("Ingrese cédula del Supervisor: ");
-        String cedulaSupervisor = scanner.nextLine();
-        System.out.print("Ingrese sexo del Supervisor: ");
-        String sexoSupervisor = scanner.nextLine();
-        
-        // Leer ID del Supervisor, manejando la entrada del entero correctamente
-        int idSupervisor = 0;
-        System.out.print("Ingrese ID del Supervisor: ");
-        if (scanner.hasNextInt()) {
-            idSupervisor = scanner.nextInt();
-        } else {
-            System.out.println("Error: ID del Supervisor debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
-        }
-        scanner.nextLine(); // Consumir el salto de línea
-
-        Supervisor supervisor1 = new Supervisor(nombreSupervisor, cedulaSupervisor, sexoSupervisor, idSupervisor);
-
-        // Ingresar datos del Árbitro
-        System.out.print("Ingrese nombre del Árbitro: ");
-        String nombreArbitro = scanner.nextLine();
-        System.out.print("Ingrese cédula del Árbitro: ");
-        String cedulaArbitro = scanner.nextLine();
-        System.out.print("Ingrese sexo del Árbitro: ");
-        String sexoArbitro = scanner.nextLine();
-        
-        // Leer ID del Árbitro, manejando la entrada del entero correctamente
-        int idArbitro = 0;
-        System.out.print("Ingrese ID del Árbitro: ");
-        if (scanner.hasNextInt()) {
-            idArbitro = scanner.nextInt();
-        } else {
-            System.out.println("Error: ID del Árbitro debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
-        }
-        scanner.nextLine(); // Consumir el salto de línea
-        System.out.print("Ingrese rol del Árbitro: ");
-        String rolArbitro = scanner.nextLine();
-
-        Arbitro arbitro1 = Arbitro.registrarArbitro(nombreArbitro, cedulaArbitro, sexoArbitro, idArbitro, rolArbitro, null);
-
-        // Ingresar datos del Jugador
-        System.out.print("Ingrese nombre del Jugador: ");
-        String nombreJugador = scanner.nextLine();
-        System.out.print("Ingrese cédula del Jugador: ");
-        String cedulaJugador = scanner.nextLine();
-        System.out.print("Ingrese sexo del Jugador: ");
-        String sexoJugador = scanner.nextLine();
-        System.out.print("Ingrese categoría del Jugador: ");
-        String categoriaJugador = scanner.nextLine();
-
-        Jugador jugador1 = Jugador.registrarJugador(nombreJugador, cedulaJugador, sexoJugador, categoriaJugador, null);
-
-        // Ingresar datos del Deporte
-        System.out.print("Ingrese nombre del Deporte: ");
-        String nombreDeporte = scanner.nextLine();
-        System.out.print("Ingrese descripción del Deporte: ");
-        String descripcionDeporte = scanner.nextLine();
-
-        Deporte deporte1 = Deporte.crearDeporte(nombreDeporte, descripcionDeporte);
-
-        // Ingresar datos del Equipo A
-        System.out.print("Ingrese nombre del Equipo A: ");
-        String nombreEquipoA = scanner.nextLine();
-        System.out.print("Ingrese color del Equipo A: ");
-        String colorEquipoA = scanner.nextLine();
-        System.out.print("Ingrese entrenador del Equipo A: ");
-        String entrenadorEquipoA = scanner.nextLine();
-        System.out.print("Ingrese himno del Equipo A: ");
-        String himnoEquipoA = scanner.nextLine();
-
-        System.out.println("Ingrese titulares del Equipo A (separados por comas): ");
-        String[] titularesA = scanner.nextLine().split(",");
-        List<String> titularesEquipoA = new ArrayList<>();
-        for (String titular : titularesA) {
-            titularesEquipoA.add(titular.trim());
-        }
-
-        System.out.println("Ingrese suplentes del Equipo A (separados por comas): ");
-        String[] suplentesA = scanner.nextLine().split(",");
-        List<String> suplentesEquipoA = new ArrayList<>();
-        for (String suplente : suplentesA) {
-            suplentesEquipoA.add(suplente.trim());
-        }
-
-        Equipo equipoA = new Equipo(nombreEquipoA, colorEquipoA, entrenadorEquipoA, himnoEquipoA, titularesEquipoA, suplentesEquipoA);
-
-        // Ingresar datos del Equipo B
-        System.out.print("Ingrese nombre del Equipo B: ");
-        String nombreEquipoB = scanner.nextLine();
-        System.out.print("Ingrese color del Equipo B: ");
-        String colorEquipoB = scanner.nextLine();
-        System.out.print("Ingrese entrenador del Equipo B: ");
-        String entrenadorEquipoB = scanner.nextLine();
-        System.out.print("Ingrese himno del Equipo B: ");
-        String himnoEquipoB = scanner.nextLine();
-
-        System.out.println("Ingrese titulares del Equipo B (separados por comas): ");
-        String[] titularesB = scanner.nextLine().split(",");
-        List<String> titularesEquipoB = new ArrayList<>();
-        for (String titular : titularesB) {
-            titularesEquipoB.add(titular.trim());
-        }
-
-        System.out.println("Ingrese suplentes del Equipo B (separados por comas): ");
-        String[] suplentesB = scanner.nextLine().split(",");
-        List<String> suplentesEquipoB = new ArrayList<>();
-        for (String suplente : suplentesB) {
-            suplentesEquipoB.add(suplente.trim());
-        }
-
-        Equipo equipoB = new Equipo(nombreEquipoB, colorEquipoB, entrenadorEquipoB, himnoEquipoB, titularesEquipoB, suplentesEquipoB);
-
-        // Ingresar datos de la inscripción
-        System.out.print("Ingrese deporte de la Inscripción: ");
-        String deporteInscripcion = scanner.nextLine();
-        System.out.print("Ingrese NCI de la Inscripción: ");
-        String NCIInscripcion = scanner.nextLine();
-        System.out.print("Ingrese número de participantes: ");
-        int numParticipantes = 0;
-        if (scanner.hasNextInt()) {
-            numParticipantes = scanner.nextInt();
-        } else {
-            System.out.println("Error: Número de participantes debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
-        }
-        scanner.nextLine(); // Consumir el salto de línea
-        System.out.print("Ingrese estado de la Inscripción: ");
-        String estadoInscripcion = scanner.nextLine();
-
-        Inscripcion inscripcion = new Inscripcion(deporteInscripcion, NCIInscripcion, numParticipantes, new Date(), estadoInscripcion);
-
-        // Crear inscripción de equipo
+    private static List<Jugador> ingresarJugadores(Scanner scanner, int cantidad) {
         List<Jugador> jugadores = new ArrayList<>();
-        jugadores.add(jugador1);
-        InscripcionEquipo inscripcionEquipo = new InscripcionEquipo(jugadores);
+        for (int i = 0; i < cantidad; i++) {
+            System.out.print("Ingrese nombre del Jugador: ");
+            String nombre = scanner.nextLine();
+            System.out.print("Ingrese cedula del Jugador: ");
+            String cedula = scanner.nextLine();
+            System.out.print("Ingrese sexo del Jugador: ");
+            String sexo = scanner.nextLine();
+            System.out.print("Ingrese categoria del Jugador: ");
+            String categoria = scanner.nextLine();
+            int goles = leerEntero(scanner, "Ingrese goles del Jugador: ");
+            scanner.nextLine(); // Consumir el salto de línea
+            int faltas = leerEntero(scanner, "Ingrese faltas del Jugador: ");
+            scanner.nextLine(); // Consumir el salto de línea
+            System.out.print("Ingrese posicion del Jugador: ");
+            String posicion = scanner.nextLine();
 
-        // Crear inscripción individual
-        InscripcionIndividual inscripcionIndividual = new InscripcionIndividual(jugador1);
-
-        // Ingresar datos de las jornadas
-        System.out.print("Ingrese nombre de las Jornadas: ");
-        String nombreJornadas = scanner.nextLine();
-
-        System.out.println("Ingrese jornadas (separadas por comas): ");
-        String[] jornadasArray = scanner.nextLine().split(",");
-        List<String> jornadasList = new ArrayList<>();
-        for (String jornada : jornadasArray) {
-            jornadasList.add(jornada.trim());
+            Jugador jugador = Jugador.registrarJugador(nombre, cedula, sexo, categoria, null, goles, faltas, posicion);
+            jugadores.add(jugador);
         }
+        return jugadores;
+    }
 
-        Jornadas jornadas = new Jornadas(nombreJornadas, jornadasList);
-
-        // Ingresar datos del registro
-        System.out.print("Ingrese nombre del Registro: ");
-        String nombreRegistro = scanner.nextLine();
-        System.out.print("Ingrese ID del Registro: ");
-        int idRegistro = 0;
-        if (scanner.hasNextInt()) {
-            idRegistro = scanner.nextInt();
-        } else {
-            System.out.println("Error: ID del Registro debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
+    private static int leerEntero(Scanner scanner, String mensaje) {
+        System.out.print(mensaje);
+        while (!scanner.hasNextInt()) {
+            System.out.print("Entrada invalida. " + mensaje);
+            scanner.next();
         }
-        scanner.nextLine(); // Consumir el salto de línea
+        return scanner.nextInt();
+    }
 
-        Registro registro = new Registro(nombreRegistro, idRegistro);
-        registro.realizarRegistro();
-        registro.registrarEncuentro();
-
-        // Ingresar datos del resultado
-        System.out.print("Ingrese ID del Resultado: ");
-        int idResultado = 0;
-        if (scanner.hasNextInt()) {
-            idResultado = scanner.nextInt();
-        } else {
-            System.out.println("Error: ID del Resultado debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
+    private static void mostrarDatosEquipo(Equipo equipo) {
+        System.out.println("Nombre: " + equipo.getNombre());
+        System.out.println("Color: " + equipo.getColor());
+        System.out.println("Entrenador: " + equipo.getEntrenador());
+        System.out.println("Himno: " + equipo.getHimno());
+        System.out.println("Titulares:");
+        for (Jugador jugador : equipo.getTitulares()) {
+            mostrarDatosJugador(jugador);
         }
-        scanner.nextLine(); // Consumir el salto de línea
-
-        Resultado resultado = new Resultado(idResultado);
-
-        // Ingresar datos de la suspensión
-        System.out.print("Ingrese motivo de la Suspensión: ");
-        String motivoSuspension = scanner.nextLine();
-        System.out.print("Ingrese tipo de la Suspensión: ");
-        String tipoSuspension = scanner.nextLine();
-        System.out.print("Ingrese tiempo de la Suspensión: ");
-        String tiempoSuspension = scanner.nextLine();
-
-        Suspension suspension = new Suspension(motivoSuspension, tipoSuspension, tiempoSuspension);
-
-        // Ingresar datos de la tabla de posición
-        System.out.print("Ingrese posición en la tabla: ");
-        int posicionTabla = 0;
-        if (scanner.hasNextInt()) {
-            posicionTabla = scanner.nextInt();
-        } else {
-            System.out.println("Error: Posición en la tabla debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
+        System.out.println("Suplentes:");
+        for (Jugador jugador : equipo.getSuplentes()) {
+            mostrarDatosJugador(jugador);
         }
-        System.out.print("Ingrese ID de la tabla: ");
-        int idTabla = 0;
-        if (scanner.hasNextInt()) {
-            idTabla = scanner.nextInt();
-        } else {
-            System.out.println("Error: ID de la tabla debe ser un número entero.");
-            scanner.next(); // Limpiar el input incorrecto
+        System.out.println("Total goles: " + equipo.calcularGolesTotales());
+        System.out.println("Total faltas: " + equipo.calcularFaltasTotales());
+        System.out.println("Puntos: " + equipo.getPuntos());
+    }
+
+    private static void mostrarDatosJugador(Jugador jugador) {
+        System.out.println("    Nombre: " + jugador.getNombre());
+        System.out.println("    Cedula: " + jugador.getCedula());
+        System.out.println("    Sexo: " + jugador.getSexo());
+        System.out.println("    Categoria: " + jugador.getCategoria());
+        System.out.println("    Goles: " + jugador.getGoles());
+        System.out.println("    Faltas: " + jugador.getFaltas());
+        System.out.println("    Posicion: " + jugador.getPosicion());
+    }
+
+    private static void mostrarTablaPosiciones(Equipo equipo) {
+        System.out.println("Equipo: " + equipo.getNombre());
+        System.out.println("Nombre | Goles | Faltas");
+        for (Jugador jugador : equipo.getJugadores()) {
+            System.out.printf("%s | %d | %d%n", jugador.getNombre(), jugador.getGoles(), jugador.getFaltas());
         }
-        scanner.nextLine(); // Consumir el salto de línea
-
-        TablaPosicion tablaPosicion = new TablaPosicion(posicionTabla, idTabla);
-        tablaPosicion.ordenarEstadisticas();
-        tablaPosicion.crearTabla();
-
-        // Llamar a métodos relevantes para probar la funcionalidad
-        director1.addDT();
-        supervisor1.metodoEspecifico();
-        arbitro1.obtenerArbitro();
-        jugador1.obtenerJugador();
-        deporte1.obtenerDeporte(1);
-        equipoA.definirEquipo();
-        equipoB.definirEquipo();
-        
-        // Cierre del scanner
-        scanner.close();
+        System.out.println("Estadisticas del Equipo:");
+        System.out.println("Total Goles: " + equipo.getJugadores().stream().mapToInt(Jugador::getGoles).sum());
+        System.out.println("Total Faltas: " + equipo.getJugadores().stream().mapToInt(Jugador::getFaltas).sum());
     }
 }
