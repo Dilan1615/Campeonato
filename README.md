@@ -29,22 +29,22 @@ Scanner: Leer la entrada del usuario desde la consola.
 # Explicacion del main
 Inicialización:
 
-Se crea un objeto Scanner para leer la entrada del usuario.
-Se inicializa una lista equipos para almacenar los objetos Equipo.
-Ingreso de Datos:
+1. Se crea un objeto Scanner para leer la entrada del usuario.
+2. Se inicializa una lista equipos para almacenar los objetos Equipo.
+3. Ingreso de Datos:
 
-Solicita datos del director, supervisor y árbitro.
-Permite ingresar detalles para el Equipo A y Equipo B, incluyendo titulares y suplentes. El número de titulares y suplentes para el Equipo B será el mismo que para el Equipo A.
-Pregunta el equipo ganador y, opcionalmente, el número de campeonatos si hay un ganador.
-Opciones Adicionales:
+- Solicita datos del director, supervisor y árbitro.
+- Permite ingresar detalles para el Equipo A y Equipo B, incluyendo titulares y suplentes. El número de titulares y suplentes para el Equipo B será el mismo que para el Equipo A.
+- Pregunta el equipo ganador y, opcionalmente, el número de campeonatos si hay un ganador.
+4. Opciones Adicionales:
 
-Permite volver a ingresar los detalles del equipo ganador si se elige hacerlo.
-Ofrece la opción de agregar más equipos.
-Mostrar Estadísticas:
+- Permite volver a ingresar los detalles del equipo ganador si se elige hacerlo.
+- Ofrece la opción de agregar más equipos.
+5. Mostrar Estadísticas:
 
-Muestra datos detallados de cada equipo, incluyendo titulares, suplentes, goles totales, faltas totales y puntos.
-Muestra una tabla de posiciones con estadísticas individuales de cada jugador y del equipo.
-Manejo de Errores:
+- Muestra datos detallados de cada equipo, incluyendo titulares, suplentes, goles totales, faltas totales y puntos.
+- Muestra una tabla de posiciones con estadísticas individuales de cada jugador y del equipo.
+6. Manejo de Errores:
 
 Incluye un bloque try-catch para capturar y manejar excepciones que puedan ocurrir durante la ejecución.
 
