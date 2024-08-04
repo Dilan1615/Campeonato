@@ -1,3 +1,5 @@
+## Diagrama De Clases
+
 ![Diagrama_page-0001](https://github.com/user-attachments/assets/040b1763-d32d-40d8-badb-7538396eda38)
 # Campeonato
 
@@ -12,8 +14,6 @@ Sigue las instrucciones en pantalla para ingresar los datos requeridos:
 3. Ingrese el equipo ganador (A, B, o empate).
 4. Opcionalmente, puedes agregar más equipos y repetir el proceso.
 5. Después de ingresar los equipos, el programa mostrará las estadísticas y el equipo ganador.
-
-![Diagrama](https://github.com/user-attachments/assets/040b1763-d32d-40d8-badb-7538396eda38)
 
 ## Importaciones
 
